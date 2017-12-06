@@ -17,6 +17,6 @@ class PositionTest (unittest.TestCase):
         position = Position(1,3)
         self.assertEqual(0, position.distance_to(position))
 
-if __name__ == "__" \
-               "main__":
+if __name__ == "__main__":
    unittest.main()
+
