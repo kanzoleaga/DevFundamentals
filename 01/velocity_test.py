@@ -30,7 +30,7 @@ class velocity_test (unittest.TestCase):
         start_positon = Position ()
         end_position = Position (16,4)
         velocity = Velocity (start_positon, end_position)
-        self.assertEqual (75.96, velocity.angle())
+        self.assertEqual (14.04, velocity.angle())
 
 if __name__ == "__main__":
     unittest.main ()

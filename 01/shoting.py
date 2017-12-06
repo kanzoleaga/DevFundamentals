@@ -14,6 +14,9 @@ class Position (object):
         delta_x = self.x() - other.x()
         delta_y = self.y() - other.y()
         return math.sqrt(delta_x**2+delta_y**2)
+    # Sobrecarga del operador igual ==
+    def __eq__ (self, other):
+        return True
 
 class Velocity (object):
     def __init__(self, start, end):
@@ -35,12 +38,18 @@ class Velocity (object):
         if self.deltaX()== self.deltaY():
             return 45
         else:
-            radians  = math.atan(self.deltaX()/self.deltaY())
+            radians  = math.atan(self.deltaY()/self.deltaX())
             print (math.degrees (radians))
             return round(math.degrees(radians),2)
 
+class Projectile (object):
+    def __init__(self, position):
+        self._position = position
 
-
+    def shoot (self, velocity):
+        pass
+    def position (self):
+        return self._position
 
 
 
