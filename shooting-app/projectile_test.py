@@ -31,13 +31,13 @@ class ProjectileTest(unittest.TestCase):
 	# 	self.assertEqual(Position(5, 0), projectile.position())
 
 	def test_projectile_shot_with_a_given_angle_follows_a_parabolic_path(self):
-		initial_position = Position(0, 3)
-		projectile = Projectile(initial_position)
-		velocity = Velocity(Position(0,3), Position(4,6))
-		#angle = velocity.angle()
+		pass
+
+	def test_projectile_shot_with_a_given_angle_follows_a_parabolic_path(self):
+		projectile = Projectile(Position (0, 3))
+		velocity = Velocity(Position(0, 3), Position(4, 6))
 		projectile.shoot(velocity)
-		print(projectile.time)
-		self.assertEqual(Position(15,0), projectile.position())
+		self.assertEquals(Position(3, 0), projectile.position())
 
 if __name__ == "__main__":
 	unittest.main()

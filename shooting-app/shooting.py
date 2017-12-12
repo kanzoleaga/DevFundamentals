@@ -1,20 +1,5 @@
 import math
-
-def cuadratic_equation (a, b, c):
-	x = []
-	d = b ** 2 - 4 * a * c  # discriminant
-	print ("d: ",d)
-	if d < 0:
-		return [] #"This equation has no real solution"
-	elif d == 0:
-		x = [-b / 2 * a]
-		return x #	"This equation has one solutions: ", x
-	else: #"This equation has two solutions: ", x1, " and", x2
-		x1 = (-b - math.sqrt(d)) / (2 * a)
-		x2 = (-b + math.sqrt(d)) / (2 * a)
-		x = [x1, x2]  # returns first the positive solution for a positive time
-		return (x)
-
+from cuadratic import *
 
 class Position(object):
 
@@ -35,9 +20,9 @@ class Position(object):
 
 	def __eq__(self, other):
 		if (isinstance(other, Position)):
-			return (self.x() == other.x() and self.y() == other.y())
-		else:
-			return False
+			if self.x() == other.x() and self.y() == other.y():
+				return True
+		return False
 
 	def __str__(self):
 		return "(" + str(self._x) + ", " + str(self._y) + ")"	
@@ -48,54 +33,51 @@ class Velocity(object):
 		self.start = start
 		self.end = end
 
-	def delta_x (self):
-		return self.end.x() - self.start.x()
-
-	def delta_y (self):
-		return self.end.y() - self.start.y()
-
 	def magnitude(self):
 		return self.end.distance_to(self.start)
 
+	def delta_x (self):
+		return (self.end.x() - self.start.x())
+
+	def delta_y (self):
+		return (self.end.y() - self.start.y())
+
 	def angle(self):
 		# angle = tan-1(y/x)
-		return math.degrees(math.atan2(self.delta_y(), self.delta_x()))
+		delta_y = self.end.y() - self.start.y()
+		delta_x = self.end.x() - self.start.x()
+		return math.degrees(math.atan2(delta_y, delta_x))
 
 
 class Projectile(object):
 	
 	def __init__(self, position):
-		self._position = position;
-		self.time = None
-	def position (self):
-		return (self.positon)
+		self._position = position
+		self._time = None
 
+	def position(self):
+		return (self._position)
 
 	def shoot(self, velocity):
 		# Changes the inital postion to a new postion
-		angle = velocity.angle()
-		# The final position will be 0 for y then
+		#angle = velocity.angle()
+		#if angle > 0 and angle < 90:
 		a = -1/2*9.8 # from  -1/2*g*t**2
-		print ("a:", a)
-		b = velocity.delta_y()
-		print("b:", b)
+		#print("a: ", a)
+		#print ("velocity.end.y() :", velocity.end.y())
+		#print("velocity.start.y() :", velocity.start.y())
+		b = velocity.end.y() - velocity.start.y()
+		#print("b: ", b)
 		c = velocity.start.y()
-		print("c:", c)
+		#print("c: ", c)
 		t = cuadratic_equation(a, b, c)
-		print (t)
+		#print("t: ", t)
+		# Taking only the positive value from solutions to this equation, since the time is positive
 		if t[0] >= 0:
-			self.time = t[0]
+			self._time = t[0]
 		else:
-			self.time = t[1]
-
+			self._time = t[1]
 		# Calculating the final position
-		x = velocity.start.x() + velocity.delta_x()*self.time
-		position = Position(x,0)
-		self.position = position
-
-
-
-
-
-
-
+		final_x = round (velocity.start.x() + (velocity.delta_x()*self._time), 2)
+		self._position = Position(final_x,0)
+		print(self.position())
