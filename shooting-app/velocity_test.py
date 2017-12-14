@@ -43,7 +43,14 @@ class VelocityTest(unittest.TestCase):
 		velocity = Velocity(start_position, end_position)
 
 		self.assertTrue(velocity.angle() > 45)
-		self.assertTrue(velocity.angle() < 90)		
+		self.assertTrue(velocity.angle() < 90)
+
+	def test_velocity_can_be_created_with_magnitude_and_angle(self):
+		velocity = Velocity.create_from_values(5, 45)
+
+		self.assertTrue(isinstance(velocity, Velocity))
+		self.assertEquals(45, velocity.angle())
+		self.assertEquals(5, velocity.magnitude())	
 
 
 if __name__ == "__main__":
